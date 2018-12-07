@@ -1,0 +1,40 @@
+<?xml-stylesheet type="text/css" href="5.css"?>
+<html>
+	<head>
+		<h1>STUDENTS DESCRIPTION</h1>
+	</head>
+
+	<students>
+		<student>
+			<USN>USN	:1kn15is006</USN>
+			<name>NAME 	:Harshitha CR</name>
+			<college>COLLEGE :KNSIT</college>
+			<branch>BRANCH   :ISE</branch>
+			<e-mail>E-MAIL   :harshitha@gmail.com</e-mail>
+		</student>
+
+		<student>
+			<USN>USN	:1kn15IS004</USN>
+			<name>NAME 	:shampritha</name>
+			<college>COLLEGE :KNSIT</college>
+			<branch>BRANCH   :ISE</branch>
+			<e-mail>E-MAIL   :shampritha@gmail.com</e-mail>
+		</student>
+
+		<student>
+			<USN>USN	:1kn15is001</USN>
+			<name>NAME 	:aishwarya h</name>
+			<college>COLLEGE :KNSIT</college>
+			<branch>BRANCH   :ISE</branch>
+			<e-mail>E-MAIL   :aishwarya@gmail.com</e-mail>
+		</student>
+
+		<student>
+			<USN>USN	:1kn15is011</USN>
+			<name>NAME 	:priya</name>
+			<college>COLLEGE :KNSIT</college>
+			<branch>BRANCH   :ISE</branch>
+			<e-mail>E-MAIL   :Priya@gmail.com</e-mail>
+		</student>
+	</students>
+</html>
