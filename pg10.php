@@ -1,141 +1,48 @@
-<!DOCTYPE html> <html>
-
-<body>
-
-<style>
-
-table, td, th
-
-{
-
-border: 1px solid black; width: 33%;
-
-text-align: center; border-collapse:collapse; background-color:lightblue;
-
-}
-
-table { margin: auto; } </style>
-
 <?php
-
+header('Content-Type: text/plain');
 $servername = "localhost";
 $username = "root";
-$password = " ";
-$dbname = "weblab"; 
-$a = array();
-
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if ($conn->connect_error)
-
-die("Connection error: " . $conn->connect_error);
-
-
+$password = "";
+$dbname = "weblab";
+$usnArray=[];
+$nameArray= [];
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+die("Connection failed: " . $conn->connect_error); // die() prints msg and exit the program
+}
 $sql = "SELECT * FROM student";
-
-// performs a query against the database $result = $conn->query($sql);
-
-echo "<br>";
-
-echo "<center> BEFORE SORTING </center>"; echo "<table border='2'>";
-
-echo "<tr>";
-
-echo "<th>USN</th><th>NAME</th><th>Address</th></tr>"; if ($result->num_rows> 0)
-
-{
-
-// output data of each row and fetches a result row as an associative array
-
-while($row = $result->fetch_assoc()){ echo "<tr>";
-
-echo "<td>". $row["usn"]."</td>"; 
-echo "<td>". $row["name"]."</td>";
-
-echo "<td>". $row["addr"]."</td></tr>"; 
-array_push($a,$row["usn"]);
-
-}
-
-}
-
-else
-
-echo "Table is Empty"; echo "</table>"; 
-$n=count($a);
-
-$b=$a;
-
-for ( $i = 0 ; $i< ($n - 1) ; $i++ )
-
-{
-
-$pos= $i;
-
-
-for ( $j = $i + 1 ; $j < $n ; $j++ ) { 
-	if ( $a[$pos] > $a[$j] )
-
-		$pos= $j;
-
-}
-
-if ( $pos!= $i ) { 
-	$temp=$a[$i]; 
-	$a[$i] = $a[$pos]; 
-	$a[$pos] = $temp;
-
-}
-
-}
-
-$c=[]; 
-$d=[];
-
 $result = $conn->query($sql);
 
-if ($result->num_rows> 0)// output data of each row
+echo "Before sorting \n";
+    while($row = $result->fetch_assoc()){
+      echo $row["usn"];
+      echo " ";
+      echo $row["name"];
+      echo " ";
+      array_push($usnArray,$row["usn"]);
+      $nameArray[$row["usn"]] = $row["name"];
+      echo "\n";
+    }
 
-{
-
-while($row = $result->fetch_assoc()) { for($i=0;$i<$n;$i++) {
-
-if($row["usn"]== $a[$i]) { 
-	$c[$i]=$row["name"]; 
-	$d[$i]=$row["addr"];
-
+echo "\nafter sorting \n";
+$n=count($usnArray);
+for ( $i = 0 ; $i < $n ; $i++ ) 
+    {
+      $pos= $i;
+      for ( $j = $i + 1 ; $j < $n ; $j++ ) {
+        if ( $usnArray[$j] < $usnArray[$pos] )
+        $pos= $j;
+    }
+    //swap
+      $temp = $usnArray[$i];
+      $usnArray[$i] = $usnArray[$pos];
+      $usnArray[$pos] = $temp;
 }
-
+foreach(  $usnArray as $value ){
+	echo($value);
+	echo" ";
+	echo $nameArray[$value];
+	echo"\n";
 }
-
-}
-
-}
-
-echo "<br>";
-
-echo "<center> AFTER SORTING </center>"; 
-echo "<table border='2'>";
-
-echo "<tr>";
-
-echo "<th>USN</th><th>NAME</th><th>Address</th></tr>"; 
-for($i=0;$i<$n;$i++) {
-
-echo "<tr>";
-
-echo "<td>". $a[$i]."</td>"; 
-echo "<td>". $c[$i]."</td>";
-
-echo "<td>". $d[$i]."</td></tr>";
-
-}
-
-echo "</table>"; $conn->close();
-
+$conn->close();
 ?>
-
-</body>
-
-</html>
